@@ -1,0 +1,112 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "yt-dlp-plugins"
+version = "0.1.0"
+description = "Standards-compliant OAuth 2.0 Device Authorization Grant plugin for yt-dlp (research / integration). Does not claim YouTube anti-bot, PO Token, or authentication bypass capabilities."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "TEAMUNKNOW" },
+]
+keywords = [
+    "yt-dlp",
+    "yt-dlp-plugins",
+    "oauth2",
+    "device-authorization-grant",
+    "rfc8628",
+    "youtube",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Multimedia :: Video",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[project.urls]
+Homepage = "https://github.com/TEAMUNKNOW/yt-dlp-plugins"
+Repository = "https://github.com/TEAMUNKNOW/yt-dlp-plugins"
+Issues = "https://github.com/TEAMUNKNOW/yt-dlp-plugins/issues"
+Documentation = "https://github.com/TEAMUNKNOW/yt-dlp-plugins#readme"
+
+[tool.hatch.build.targets.wheel]
+packages = ["yt_dlp_plugins"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/yt_dlp_plugins",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+    "/pyproject.toml",
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra --strict-markers --strict-config"
+filterwarnings = ["error"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+src = ["yt_dlp_plugins", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "UP",
+    "B",
+    "C4",
+    "SIM",
+    "RUF",
+]
+ignore = [
+    "E501",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["yt_dlp_plugins"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+packages = ["yt_dlp_plugins"]
+
+[[tool.mypy.overrides]]
+module = "yt_dlp.*"
+ignore_missing_imports = true
